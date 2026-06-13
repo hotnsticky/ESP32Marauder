@@ -18,7 +18,7 @@
   //#define MARAUDER_V7
   //#define MARAUDER_V7_1
   //#define MARAUDER_KIT
-  //#define GENERIC_ESP32
+  #define GENERIC_ESP32
   //#define MARAUDER_FLIPPER
   //#define MARAUDER_MULTIBOARD_S3
   //#define ESP32_LDDB
@@ -383,7 +383,8 @@
     //#define HAS_NEOPIXEL_LED
     //#define HAS_PWR_MGMT
     //#define HAS_SCREEN
-    //#define HAS_SD
+    #define HAS_SD
+	#define USE_SDMMC_1BIT
     //#define HAS_TEMP_SENSOR
     //#define HAS_GPS
     //#define HAS_NIMBLE_2
@@ -2479,6 +2480,8 @@
     #define MEM_LOWER_LIM 10000
   #elif defined(GENERIC_ESP32)
     #define MEM_LOWER_LIM 10000
+	#define SD_MMC
+	#define SD_CS 15
   #elif defined(MARAUDER_FLIPPER)
     #define MEM_LOWER_LIM 10000
   #elif defined(MARAUDER_MULTIBOARD_S3)
