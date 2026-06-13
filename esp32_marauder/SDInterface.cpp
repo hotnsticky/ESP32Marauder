@@ -1,5 +1,6 @@
 #include "SDInterface.h"
 #include "lang_var.h"
+#include "SD_MMC.h"
 
 #ifdef HAS_C5_SD
   SDInterface::SDInterface(SPIClass* spi, int cs)
@@ -45,12 +46,13 @@ bool SDInterface::initSD() {
       #endif
       Serial.println(F("Using external SPI configuration..."));
       this->spiExt->begin(SPI_SCK, SPI_MISO, SPI_MOSI, SD_CS);
-      if (!SD.begin(SD_CS, *(this->spiExt))) {
-    #elif defined(HAS_C5_SD)
-      if (!SD.begin(SD_CS, *_spi)) {
-    #else
-      if (!SD.begin(SD_CS)) {
-    #endif
+      #if defined(ESP32_LDDB)
+        if (!SD_MMC.begin()) {
+      #elif defined(HAS_C5_SD)
+        if (!SD.begin(SD_CS, *_spi)) {
+      #else
+        if (!SD.begin(SD_CS)) {
+      #endif
       Serial.println(F("Failed to mount SD Card"));
       this->supported = false;
       return false;
